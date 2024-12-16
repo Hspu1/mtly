@@ -25,6 +25,14 @@ def pattern_color_combos(
         "default": Style.NORMAL
     }
 
+    try:
+        local_pattern_styles[pattern_style]
+    except KeyError:
+        return ("Вы указали неверный "
+                "цвет и/или стиль и/или цветовую комбинацию. "
+                "Вы можете узнать о существующих перейдя по ссылке: "
+                "https://github.com/Hspu1/motley" + Style.BRIGHT)
+
     return local_pattern_styles[pattern_style] \
         if pattern_style in ("italic", "bold_italic") \
         else local_pattern_styles[pattern_style] + new_text
