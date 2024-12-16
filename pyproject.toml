@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "mtly"
+version = "6.0.1"
+description = ""
+authors = ["Макс <rumyantsev1m0s1@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+colorama = "^0.4.6"
+twine = "^6.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
