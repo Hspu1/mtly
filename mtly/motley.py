@@ -1,8 +1,11 @@
+import logging
+
 from colorama import Fore, Style
 
 from mtly.color_combos import (
     volcano_color_combo, fresh_color_combo, night_color_combo
 )
+from mtly.logging_settings import lg
 
 
 def motley(text: str,
@@ -12,6 +15,12 @@ def motley(text: str,
     color, style, color_combo = (
         color.lower(), style.lower(), color_combo.lower()
     )
+    if lg.isEnabledFor(logging.INFO):
+        lg.info(f"text={repr(text)}, "
+                f"color={repr(color)}, "
+                f"style={repr(style)}, "
+                f"color_combo={repr(color_combo)}"
+        )
 
     colors = {
         "green": Fore.GREEN, "dark_green": Fore.LIGHTGREEN_EX,
@@ -38,11 +47,19 @@ def motley(text: str,
 
     try:
         colors[color], styles[style], color_combos[color_combo]
-    except KeyError:
+    except KeyError as ker:
+        if lg.isEnabledFor(logging.ERROR):
+            lg.error("Был указан неверный "
+                     "цвет и/или стиль и/или цветовую комбинация: "
+                     f"{ker}", exc_info=ker
+            )
+
         return ("Вы указали неверный "
                 "цвет и/или стиль и/или цветовую комбинацию. "
                 "Вы можете узнать о существующих перейдя по ссылке: "
-                "https://github.com/Hspu1/motley" + Style.BRIGHT)
+                "https://github.com/Hspu1/motley"
+        )
+
     else:
         if color_combo == "default":
             return f"{colors[color]}{styles[style]}{text}" \
