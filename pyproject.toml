@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mtly"
-version = "11.1.1"
+version = "11.2.1"
 description = ""
 authors = ["Макс <rumyantsev1m0s1@gmail.com>"]
 readme = "README.md"

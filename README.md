@@ -14,7 +14,7 @@
 >    ```
 ####
 ## **14 цветов, 3 цветовые комбинации и 3 стиля**
-### *Вы можете комбинировать их как зах хотите*
+### *Вы можете КОМБИНИРОВАТЬ их как захотите*
 ```python
 from mtly import motley
 
@@ -48,22 +48,5 @@ print(f'{motley(text="Все стили:")}')
 print(f'{motley(text="bold")}: {motley(text="Hello World", style="bold")}')
 print(f'{motley(text="italic")}: {motley(text="Hello World", style="italic")}')
 print(f'{motley(text="bold_italic")}: {motley(text="Hello World", style="bold_italic")}')
-
-print()
-
-print(motley(text="Пример с использованием различных цветов и стилей:"))
-print(
-    motley(text="123", color="light_blue", style="italic"),
-    motley(text="456", color="blue", style="bold"),
-    motley(text="789", color="dark_blue", style="bold_italic")
-)
-
-print()
-
-
-print(motley(text="Пример с использованием различных цветовых комбинаций и стилей:"))
-print(motley(text="123456789", color_combo="fresh", style="bold_italic"))
-print(motley(text="123456789", color_combo="volcano", style="bold_italic"))
-print(motley(text="123456789", color_combo="night", style="bold_italic"))
 ```
-### ***Запустите этот код и вам всё станет понятно!***
+![](https://iimg.su/s/17/68TUHASxctxm1gDxn2Qn6DqOREaqJAj93MasyPXx.png)

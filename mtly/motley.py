@@ -57,7 +57,7 @@ def motley(text: str,
         return ("Вы указали неверный "
                 "цвет и/или стиль и/или цветовую комбинацию. "
                 "Вы можете узнать о существующих перейдя по ссылке: "
-                "https://github.com/Hspu1/motley"
+                "https://github.com/Hspu1/mtly"
         )
 
     else:
