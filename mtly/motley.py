@@ -1,69 +1,41 @@
 import logging
 
-from colorama import Fore, Style
 
-from mtly.color_combos import (
-    volcano_color_combo, fresh_color_combo, night_color_combo
-)
 from mtly.logging_settings import lg
+from mtly.motley_settings import (
+    Colors, ColorCombos, Styles, volcano, fresh, night
+)
 
 
 def motley(text: str,
-           color: str = "default",
-           style: str = "default",
-           color_combo: str = "default") -> str:
-    color, style, color_combo = (
-        color.lower(), style.lower(), color_combo.lower()
-    )
+           color: Colors = Colors.WHITE,
+           color_combo: ColorCombos = Colors.WHITE,
+           style: Styles = Styles.DEFAULT):
     if lg.isEnabledFor(logging.INFO):
         lg.info(f"text={repr(text)}, "
                 f"color={repr(color)}, "
-                f"style={repr(style)}, "
-                f"color_combo={repr(color_combo)}"
+                f"color_combo={repr(color_combo)}, "
+                f"style={repr(style)}"
         )
 
-    colors = {
-        "green": Fore.GREEN, "dark_green": Fore.LIGHTGREEN_EX,
-        "light_blue": Fore.BLUE, "blue": Fore.LIGHTCYAN_EX,
-        "dark_blue": Fore.LIGHTBLUE_EX,
-        "yellow": Fore.LIGHTYELLOW_EX, "orange": Fore.YELLOW,
-        "pink": Fore.LIGHTMAGENTA_EX, "dark_pink": Fore.RED,
-        "red": Fore.LIGHTRED_EX,
-        "purple": Fore.MAGENTA, "dark_purple": Fore.WHITE,
-        "grey": Fore.LIGHTBLACK_EX, "black": Fore.BLACK,
-        "default": Fore.RESET
-    }
-    styles = {
-        "bold": Style.BRIGHT, "italic": f"\x1B[3m{text}\x1B[0m",
-        "bold_italic": f"\x1B[3m{Style.BRIGHT + text}\x1B[0m",
-        "default": Style.NORMAL
-    }
-    color_combos = {
-        "volcano": volcano_color_combo(entered_text=text, entered_style=style),
-        "fresh": fresh_color_combo(entered_text=text, entered_style=style),
-        "night": night_color_combo(entered_text=text, entered_style=style),
-        "default": Fore.RESET
-    }
+    if color_combo == Colors.WHITE:
+        return style.value + color.value + text + "\x1B[0m"
 
-    try:
-        colors[color], styles[style], color_combos[color_combo]
-    except KeyError as ker:
-        if lg.isEnabledFor(logging.ERROR):
-            lg.error("Был указан неверный "
-                     "цвет и/или стиль и/или цветовую комбинация: "
-                     f"{ker}", exc_info=ker
-            )
+    if color == Colors.WHITE:
+        match color_combo:
+            case ColorCombos.VOLCANO:
+                return style.value + volcano(entered_text=text)
+            case ColorCombos.FRESH:
+                return style.value + fresh(entered_text=text)
+            case ColorCombos.NIGHT:
+                return style.value + night(entered_text=text)
+            case _:
+                return style.value + text
 
-        return ("Вы указали неверный "
-                "цвет и/или стиль и/или цветовую комбинацию. "
-                "Вы можете узнать о существующих перейдя по ссылке: "
-                "https://github.com/Hspu1/mtly"
-        )
-
-    else:
-        if color_combo == "default":
-            return f"{colors[color]}{styles[style]}{text}" \
-                if style in ("bold", "default") \
-                else f"{colors[color]}{styles[style]}"
-
-        return color_combos[color_combo]
+    return style.value + (f"Вы указали сразу и {color.value + 'цвет'}"
+                          f"{color.WHITE.value + ', и'} "
+            f"{volcano("цветовую комбинацию") 
+                if '.' not in f'{color_combo}'[-7:].lower() 
+                else fresh("цветовую комбинацию") 
+                    if f'{color_combo}'[-5:].lower() == "fresh" 
+                    else night("цветовую комбинацию")}")

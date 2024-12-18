@@ -1,10 +1,9 @@
-from colorama import Fore, Style
+from colorama import Fore
 
 
 def pattern_color_combos(
         pattern_colors: tuple,
-        pattern_text: str,
-        pattern_style: str
+        pattern_text: str
 ) -> str:
     combo_colors = pattern_colors
 
@@ -19,26 +18,10 @@ def pattern_color_combos(
             new_text += combo_colors[index] + item
             index += 1
 
-    local_pattern_styles = {
-        "bold": Style.BRIGHT, "italic": f"\x1B[3m{new_text}\x1B[0m",
-        "bold_italic": f"\x1B[3m{Style.BRIGHT + new_text}\x1B[0m",
-        "default": Style.NORMAL
-    }
-
-    try:
-        local_pattern_styles[pattern_style]
-    except KeyError:
-        return ("Вы указали неверный "
-                "цвет и/или стиль и/или цветовую комбинацию. "
-                "Вы можете узнать о существующих перейдя по ссылке: "
-                "https://github.com/Hspu1/motley" + Style.BRIGHT)
-
-    return local_pattern_styles[pattern_style] \
-        if pattern_style in ("italic", "bold_italic") \
-        else local_pattern_styles[pattern_style] + new_text
+    return new_text
 
 
-def volcano_color_combo(entered_text: str, entered_style: str):
+def volcano(entered_text: str):
     local_colors = (
         Fore.LIGHTRED_EX, Fore.WHITE, Fore.YELLOW,
         Fore.LIGHTBLACK_EX, Fore.LIGHTYELLOW_EX,
@@ -90,12 +73,11 @@ def volcano_color_combo(entered_text: str, entered_style: str):
     )
 
     return pattern_color_combos(
-        pattern_colors=local_colors, pattern_text=entered_text,
-        pattern_style=entered_style
+        pattern_colors=local_colors, pattern_text=entered_text
     )
 
 
-def fresh_color_combo(entered_text: str, entered_style: str):
+def fresh(entered_text: str):
     local_colors = (
         Fore.BLUE, Fore.LIGHTCYAN_EX, Fore.LIGHTBLUE_EX,
         Fore.GREEN, Fore.LIGHTGREEN_EX,
@@ -136,12 +118,11 @@ def fresh_color_combo(entered_text: str, entered_style: str):
     )
 
     return pattern_color_combos(
-        pattern_colors=local_colors, pattern_text=entered_text,
-        pattern_style=entered_style
+        pattern_colors=local_colors, pattern_text=entered_text
     )
 
 
-def night_color_combo(entered_text: str, entered_style: str):
+def night(entered_text: str):
     local_colors = (
         Fore.BLACK, Fore.LIGHTBLACK_EX, Fore.WHITE, Fore.MAGENTA,
         Fore.BLACK, Fore.LIGHTBLACK_EX, Fore.WHITE, Fore.MAGENTA,
@@ -178,6 +159,5 @@ def night_color_combo(entered_text: str, entered_style: str):
     )
 
     return pattern_color_combos(
-        pattern_colors=local_colors, pattern_text=entered_text,
-        pattern_style=entered_style
+        pattern_colors=local_colors, pattern_text=entered_text
     )
